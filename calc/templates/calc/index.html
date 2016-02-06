@@ -1,0 +1,37 @@
+{% load calc_extras %}
+{% load staticfiles %}
+<head>
+    <link href="{% static 'calc/style.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <h1>Course list</h1>
+    <a href="{% url 'calc:add' %}">Add a course</a>
+    <a href="{% url 'calc:calc' %}">What do I need for a certain QPA?</a>
+    <table>
+        <tr>
+            <th>Course Name</th>
+            <th>Grade</th>
+            <th>Units</th>
+            <th>Quality Points</th>
+        </tr>
+        {% for course in courses %}
+            <tr>
+                <td>{{ course.courseName }}</td>
+                <td>{{ course.grade }}</td>
+                <td>{{ course.units }}</td>
+                <td>{{ course.qp }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p>units: {{ results.units }}</p>
+    <p>quality points: {{ results.totalqp  }}</p>
+    <p>qpa: {{ results.qpa }}</p>
+    {% if results.desiredQPA %}
+        {% if results.passingGradeList %}
+            <p>Grades to get >= {{ results.desiredQPA }}: {{ results.passingGradeList }}</p>
+        {% endif %}
+    {% endif %}
+    {% if results.calculatedTargetQPA %}
+        <p>QPA with new grades: {{ results.calculatedTargetQPA }}</p>
+    {% endif %}
+</body>

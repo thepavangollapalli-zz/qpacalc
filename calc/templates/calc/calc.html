@@ -1,0 +1,11 @@
+{% load staticfiles %}
+<head>
+    <link href="{% static 'calc/style.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <form method="post" action="{% url 'calc:calc' %}">
+        {% csrf_token %}
+        <input type="text" name="qpa" placeholder="Enter desired QPA" required>
+        <input type="submit" value="See the grades you need">
+    </form>
+</body>
